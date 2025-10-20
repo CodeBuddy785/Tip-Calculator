@@ -35,8 +35,6 @@ dependencies {
     implementation("androidx.core:core-ktx:1.17.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
-
-    // Use a stable version of ConstraintLayout
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     testImplementation("junit:junit:4.13.2")

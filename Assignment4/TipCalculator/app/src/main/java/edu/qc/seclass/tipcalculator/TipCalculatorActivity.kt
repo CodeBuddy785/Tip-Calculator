@@ -7,7 +7,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Button
 import android.widget.Toast
-import kotlin.math.roundToInt
+import java.text.NumberFormat
 
 class TipCalculatorActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -36,27 +36,35 @@ class TipCalculatorActivity : AppCompatActivity() {
 
             if (check == null || party == null || check <= 0.0 || party <= 0) {
                 Toast.makeText(this, "Please enter valid positive numbers.", Toast.LENGTH_SHORT).show()
+                tip15View.text   = ""
+                tip20View.text   = ""
+                tip25View.text   = ""
+                total15View.text = ""
+                total20View.text = ""
+                total25View.text = ""
                 return@setOnClickListener
             }
 
-            fun compute(rate: Double): Pair<Int, Int> {
+            fun compute(rate: Double): Pair<Double, Double> {
                 val tipTotal = check * rate
-                val perPersonTip = (tipTotal / party).roundToInt()
-                val perPersonTotal = ((check + tipTotal) / party).roundToInt()
+                val perPersonTip = tipTotal / party
+                val perPersonTotal = (check + tipTotal) / party
                 return perPersonTip to perPersonTotal
             }
+
+            val currencyFormat = NumberFormat.getCurrencyInstance()
 
             val (tip15, total15) = compute(0.15)
             val (tip20, total20) = compute(0.20)
             val (tip25, total25) = compute(0.25)
 
-            tip15View.text   = tip15.toString()
-            tip20View.text   = tip20.toString()
-            tip25View.text   = tip25.toString()
+            tip15View.text   = currencyFormat.format(tip15)
+            tip20View.text   = currencyFormat.format(tip20)
+            tip25View.text   = currencyFormat.format(tip25)
 
-            total15View.text = total15.toString()
-            total20View.text = total20.toString()
-            total25View.text = total25.toString()
+            total15View.text = currencyFormat.format(total15)
+            total20View.text = currencyFormat.format(total20)
+            total25View.text = currencyFormat.format(total25)
         }
     }
 }
